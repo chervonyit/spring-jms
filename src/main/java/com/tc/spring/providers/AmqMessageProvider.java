@@ -21,7 +21,6 @@ public class AmqMessageProvider implements MessageProvider {
             connection = connectionFactory.createConnection();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-            //MessageConsumer consumer = session.createConsumer(destination);
             connection.start();
 
             QueueBrowser queueBrowser = session.createBrowser(destination);
@@ -32,12 +31,6 @@ public class AmqMessageProvider implements MessageProvider {
                 System.out.println(message.getText());
             }
             queueBrowser.close();
-
-            /*for(int i = 0; i < 2; i++){
-                TextMessage msg = (TextMessage) consumer.receive();
-                System.out.println(msg);
-                System.out.println("Received: " + msg.getText());
-            }*/
             session.close();
         }catch(JMSException e){
             e.printStackTrace();
